@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="javascript:pay()">ddd</a>
+<script type="text/javascript">
+    var success = null;
+
+    function pay() {
+        if (success === null) {
+            success = window.open("success.html", "pay");
+
+        }
+    }
+
+</script>
+</body>
+</html>

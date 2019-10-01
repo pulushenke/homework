@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ul {
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+
+        li {
+            border: 1px solid #007fff;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        #bigBox {
+            margin: 0 auto;
+            width: 500px;
+            height: 500px;
+            border: 1px solid #007fff;
+        }
+
+        #bigBox li:nth-of-type(2),
+        #bigBox li:nth-of-type(4) {
+            color: #00f;
+        }
+    </style>
+    <script src="js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div id="myDiv" style="width: 100px;height: 100px;border:1px solid #000"></div>
+<input id="bgc" type="button" value="更改颜色">
+<!--练习-->
+<div id="bigBox">
+    <ul>
+        <li>七龙珠</li>
+        <li>火影忍者</li>
+        <li>海贼王</li>
+        <li>死神</li>
+        <li>光能战士</li>
+    </ul>
+    <input id="switch" type="button" value="点击">
+</div>
+<script>
+
+    /**添加对象方法*/
+    jQuery.fn.changeBgColor = function () {
+        this.css('background-color', 'red');
+    };
+    $('#bgc').click(function () {
+        $('#myDiv').changeBgColor();
+    });
+
+    jQuery.fn.swapClass = function (c1, c2) {
+        //this表示当前的jquery对象
+        this.each(function () {
+            var $elem = $(this);
+            if ($elem.hasClass(c1)) {
+                $elem.removeClass(c1).addClass(c2);
+            } else {
+                $elem.removeClass(c2).addClass(c1);
+            }
+        })
+    };
+
+    jQuery.fn.switchFtCr = function () {
+        this.each(function (i, val) {
+            console.log($(val).css('color') === 'rgb(0, 0, 255)');
+            if ($(val).css('color') === 'rgb(0, 0, 255)') {
+                $(val).css('color', '#000');
+            } else {
+
+                $(val).css('color', '#00f');
+
+            }
+        })
+    };
+
+    $('#switch').click(function () {
+        $('#bigBox li').switchFtCr();
+    });
+
+    /**通过extend函数，整合全局函数统一化管理*/
+    jQuery.extend({
+        myFunction2:function () {
+            console.log("Hello World");
+        },
+        myFunction3:function () {
+            console.log("msg");
+        }
+    });
+    console.log($('#bigBox li:eq(1)').css('color') === 'rgb(0, 0, 255)');
+    /**全局自定义名命名空间封装对象方法插件*/
+    jQuery.array_option = {
+        myFunction: function () {
+            console.log("这是第一个");
+        },
+        sum: function (num) {
+            var sum = 0;
+            $.each(num, function (i, val) {
+                sum += val;
+            });
+            return console.log(sum);
+        }
+    };
+    var arr = [5.7, 2, 6, 10];
+    $(function () {
+        $.array_option.myFunction();
+        $.array_option.sum(arr);
+        $.myFunction3();
+
+    });
+
+
+</script>
+</body>
+</html>

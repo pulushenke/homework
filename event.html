@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        height: 1000px;
+    }
+
+    div {
+        width: 400px;
+        height: 400px;
+        margin: 0 auto;
+        background-color: royalblue;
+        position: relative;
+    }
+
+    p {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 100px;
+        background-color: orangered;
+    }
+    </style>
+</head>
+
+<body>
+    <div onclick="show()">
+        <p></p>
+    </div>
+    <script>
+    var p = document.querySelector("div p");
+
+    function show() {
+        var evt = window.event || arguments[0];
+        p.style.left = (evt.offsetX || evt.layerX) + "px";
+        p.style.top = (evt.offsetY || evt.layerY) + "px";
+        var str1 = "相对于事件原对象原点:" + (evt.offsetX || evt.layerX) + ";" + (evt.offsetY || evt.layerY);
+        var str2 = "相对于页面原点:" + evt.pageX + ";" + evt.pageY;
+        var str3 = "相对于显示区原点" + (evt.x || evt.clientX) + ":" + (evt.y || evt.clientY);
+        p.innerHTML = str1 + "<br/>" + str2 + "<br/>" + str3;
+
+
+    }
+    </script>
+</body>
+
+</html>

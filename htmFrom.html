@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .hintText {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        textarea {
+            resize: none;
+            width: 500px;
+            height: 100px;
+
+        }
+
+        .valiFail {
+            background-color: pink;
+        }
+
+
+    </style>
+</head>
+<body>
+<h2>发表留言</h2>
+<form action="" name="msgForm">
+    姓名: <input type="text" value="请输入你的姓名" class="hintText" onfocus="focusName(this)" onblur="blurName(this)">姓名必须6位字符以内<br/>
+    <textarea name="content" class="hintText" onfocus="focusContent(this)" onblur="blurContent(this)">请输入留言内容</textarea>
+    留言不能为空<br/>
+    <label>
+        <input type="checkbox" name="check">我已阅读了《常见问题列表》
+    </label><br/>
+    <input type="submit" disabled="disabled" value="提交">
+</form>
+
+<script>
+    var form = document.forms["msgForm"];
+    var check = form.elements["check"];
+    var subBtn = form.elements[form.elements.length - 1];
+    check.onclick = function () {
+        subBtn.disabled = !this.checked;
+    };
+
+
+    subBtn.onclick = function () {
+        var ent = window.event || arguments[0];
+        var userIpt = form.elements[0];
+        var txtContent = form.content;
+        var result = true;
+        if (userIpt.value.length > 6) {
+            userIpt.focus();
+            userIpt.className = "valiFail";
+            result = false;
+        } else if (txtContent.value === "请输入留言内容") {
+            txtContent.focus();
+            txtContent.className = "valiFail";
+            result = false;
+        }
+        if (!result) {
+            if (ent.preventDefault) {
+                ent.preventDefault();
+            } else {
+                ent.returnValue = false;
+            }
+        }
+
+    };
+
+    function focusName(txtName) {
+        if (/^\s*$/.test(txtName.value) || txtName.value === "请输入你的姓名") {
+            txtName.className = "";
+            txtName.value = "";
+        }
+    }
+
+    function blurName(txtName) {
+        if (/^\s*$/.test(txtName.value)) {
+            txtName.className = "hintText";
+            txtName.value = "请输入你的姓名";
+        }else{
+            txtName.className = "";
+        }
+    }
+
+    function focusContent(txtContent) {
+        if (/^\s*$/.test(txtContent.value) || txtContent.value === "请输入留言内容") {
+            txtContent.className = "";
+            txtContent.value = "";
+        }
+    }
+
+    function blurContent(txtContent) {
+        if (/^\s*$/.test(txtContent.value)) {
+            txtContent.className = "hintText";
+            txtContent.value = "请输入留言内容";
+        }else{
+            txtContent.className= "";
+        }
+    }
+</script>
+
+
+</body>
+</html>

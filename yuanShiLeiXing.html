@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p></p>
+<script type="text/javascript">
+    /****Date对象*/
+    //日期格式化
+    function format(date) {
+
+        var week = ["日", "一", "二", "三", "四", "五", "六"];
+        var y = date.getFullYear() + "年 ";
+        var m = date.getMonth() + 1 + "月 ";
+        var d = date.getDate() + "日 ";
+        var w = "星期" + week[date.getDay()] + " ";
+        var hour = date.getHours();
+        var am = hour >= 12 ? "下午" : "上午";
+        hour = hour < 10 ? "0" + hour : " " + hour;
+        var min = date.getMinutes();
+        min = min < 10 ? "0" + min : " " + min;
+        var sed = date.getSeconds();
+        sed = sed < 10 ? "0" + sed : " " + sed;
+        var dateStr = y + m + d + w + am + hour + ":" + min + ":" + sed;
+        return dateStr;
+    }
+
+
+    document.write(format(new Date()) + "<br/>");
+    var name = "姜峰";
+    var code = name.charCodeAt();
+    document.write(code + "<br/>");
+    document.write(code.toString(2));
+    /* var entry = new Date("2015/10/15");
+     entry.setFullYear(entry.getFullYear() + 3);
+     document.write("入职时间"  + entry + "<br/>");
+     entry.setMonth(entry.getMonth() - 1);
+     document.write("提前一个月:" +entry + "<br/>");
+     if(entry.getDate() ==6){
+         entry.getDate() - 1;
+
+     }else if(entry.getDate() == 7){
+         entry.getDate() -2;
+     }*/
+    /*var now = new Date;
+    var next = new Date(now.getTime());
+    var d = next.getDate();
+    d -= 15;
+    next.setDate(d)
+    console.log(next);
+    console.log(now);*/
+
+
+    /*
+    var birth = new Date("1990-1-4");
+      var age = nowYear.getFullYear() - birth.getFullYear();*/
+    //alert(age);
+    //alert(nowYear.getMonth());
+
+    /**取随机整数
+     * Math.floor()取*/
+    //随机生成4位验证码
+    /* let codes = [];
+     for (let i = 48; i <= 57; i++) {
+         codes.push(i);
+     }
+     for (let i = 65; i <= 90; i++) {
+         codes.push(i);
+     }
+     for (let i = 97; i <= 122; i++
+     ) {
+         codes.push(i);
+     }
+
+     function getCode() {
+         let arr3 = [];
+         for (let i = 0; i < 4; i++) {
+             let index = Math.floor(Math.random() * (61 - 0 + 1) + 0);
+             let char = String.fromCharCode(codes[index]);
+             arr3.push(char);
+         }
+
+         return arr3.join("");
+     }
+
+     function trim1(str) {
+         let reg = /(^\s+)|(\s+$)/g;
+         return str.replace(reg, "");
+     }
+
+     let input = "";
+
+     while (true) {
+         let code = getCode();
+         input = trim1(prompt("请输入验证码" + " " + code));
+         let reg = /^[a-zA-Z0-9]{4}$/;
+         if (reg.test(input)) {
+             if (input.toUpperCase() == code.toUpperCase()) {
+                 alert("输入成功");
+                 break;
+             } else {
+                 alert("输入有误");
+             }
+         } else {
+             alert("格式不对");
+
+         }
+     }*/
+    /**关于查找:仅判断有没有,或者仅查找位置:indexOf; 支持正则表达式search；仅找所有关键字的内容:match
+     * 即找位置,又找内容:exec*/
+    /*    let str = "明明喜欢我,却不告诉我;别理我,我想静静;静静是谁?你TM先告诉我明明是谁?";
+        let regExp1 = /明明|静静/g;
+        let arr = [];
+        while ((arr = regExp1.exec(str)) !== null) {
+            document.write("在位置" + arr.index + "发现关键字" + arr[0] + "<br/>");
+        }
+        let arr1 = [3, 5, 52, 5, 65];
+        let arr2 = Math.max.apply(Math, arr1);
+        document.write(arr2);
+
+        function trim(str) {
+            let regExp = /(^\s+)|(\s+$)/g;
+            return str = str.replace(regExp, "");
+        }*/
+
+    /**前加^,后加$,表示从头到尾完整匹配!*/
+    /* let regExp = /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/;
+     /!**验证用text方法*!/
+     while (true) {
+         let ipt = prompt("请输入");
+         if (regExp.test(ipt)) {
+             document.write("注册成功")
+             break;
+         } else {
+             alert("邮箱格式有误");
+         }
+     }*/
+    /**正则表达式:字符串中字符出现的规律,何时使用:
+     * 验证字符串格式,查找关键字,替换关键字
+     * 一个[]只能代表1位字符的规则 预定义字符集使用简化的符号，定义常用字符集
+     * 如果规则正文中出现特殊符号，用\转为原文
+     * .代表任意字符
+
+     /**模式匹配
+     *如果有可能返回null那么就要先判定是不是null在执行
+     获得所有关键字的内容:var kwords = str.match(rge)*/
+    /**取出汉字,数字,字母和其它的数量,
+     * 数字unicode范围:48-57:0-9*,大写字母:65-90:A-Z,
+     * 小写字母:97-122:a-z,汉字:19968-40869*/
+    /*  var str = "选购AppleCare+,延保2年";
+      let engCount = 0;
+      let numCount = 0;
+      let chsCount = 0;
+      let other = 0;
+      for (let i = 0; i < str.length; i++) {
+          let strs = str.charCodeAt(i);
+          switch (true) {
+              case strs >= 48 && strs <= 57 :
+                  numCount++;
+                  break;
+              case (strs >= 65 && strs < 90) || (strs >= 97 && strs <= 122):
+                  engCount++;
+                  break;
+              case strs >= 19968 && strs <= 40869:
+                  chsCount++;
+                  break;
+              default:
+                  other++;
+          }
+      }
+      document.write("<br/>" + "数字个数:" + numCount + "字母个数:" + engCount + "汉字个数:" + chsCount + "其它:" + other);*/
+    /**取首字母大小写分割*/
+    /*let str = "liu miao shi sha dan";
+    let words = str.split(" ");
+    for(let i = 0 ;i < words.length; i++){
+        words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+    }
+    str = words.join(" ");
+    alert(str);*/
+    /**频繁对字符串+= 要用数组这样的效率更高*/
+
+    /**截取字符串的方法，多数是用substing,而不是slice因为和大多数语言不兼容
+     /**验证判断验证码的大小写**/
+    /*    let code = "4Sd2";
+        let ipt = "";
+
+        while ((ipt = prompt("请输入").toLocaleLowerCase()) != (code.toLocaleLowerCase())) {
+            alert("输入有误");
+        }
+        alert("注册成功");*/
+
+</script>
+
+</body>
+</html>

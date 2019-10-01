@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="http://www.baidu.com">百度</a>
+<a href="javascript:void(0)">百度</a>
+<h1 id="clock"></h1>
+<button onclick="stop1()">停止时间</button>
+<script type="text/javascript">
+    /**窗口与对话框
+     * 打开窗口：1替换当前窗口
+     * 关闭窗口：
+     */
+    function openWinow() {
+        window.open("http://www.baidu.com");
+    }
+
+    function del() {
+        var result = confirm("是否删除");
+    }
+
+    /**定时器何时使用定时器：只要希望网页无人值守时，也可执行操作就必须使用定时器
+     * 1.周期性定时器：按照一定时间间隔，反复执行相同任务
+     * 何时使用周期性定时器：连续移动或连续变化
+     * 一次性定时器：先等待一定时间，再执行一次！自动结束
+     * 何时使用一次性定时器：先等待，再执行一次时*/
+    function calc() {
+
+        var now = new Date();
+        var target = new Date();
+        target.setHours(19);
+        target.setMinutes(30);
+        target.setSeconds(0);
+        var ms = target - now;
+        if (ms !== 0) {
+            console.log(ms);
+            /**取小时算法*/
+            var hu = Math.floor(ms / 1000 / 60 / 60);
+            /**取分钟算法*/
+            var me = Math.floor(ms / 1000 / 60 - hu * 60);
+            /**取秒算法*/
+            var sd = Math.floor(ms / 1000 - hu * 60 * 60 - me * 60);
+            var h1 = document.getElementById("clock");
+            h1.innerHTML = hu + ":" + (me < 10 ? "0" + me : me ) + ":" + (sd < 10 ? "0" + sd : sd);
+            console.log(h1.innerHTML);
+        } else {
+            clearInterval(timer);
+            timer = null;
+        }
+    }
+
+    var timer = null;
+    window.onload = function () {
+    };
+
+    function stop1() {
+        if (timer === null) {
+
+            timer = setInterval(calc, 1000);
+
+        } else {
+
+
+            clearInterval(timer);
+            timer = null;
+        }
+    }
+
+</script>
+</body>
+</html>

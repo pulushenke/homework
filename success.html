@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>5秒后自己关闭</h1>
+<button onclick="stopp()">暂停</button>
+<script type="text/javascript">
+    var num = 0;
+
+    var h1 = document.querySelector("h1");
+    var n = parseInt(h1.innerHTML);
+
+    function calc() {
+
+        n--;
+        h1.innerHTML = n + h1.innerHTML.substring(1);
+
+        if (num < n) {
+            setTimeout(calc, 1000);
+        } else {
+            window.close();
+        }
+
+
+    }
+
+    window.onload = function () {
+        setTimeout(calc, 1000);
+
+    };
+
+    /* function myClose() {
+
+     }
+
+     var timer = null;
+     var timer2 = null;
+     window.onload = function () {
+         //  timer = setInterval(calc, 1000);
+         timer2 = setTimeout(myClose, 5000);
+     };
+
+     function stopp() {
+         //  clearInterval(timer);
+         clearTimeout(timer2);
+         // timer = null;
+         timer2 = null;
+     }*/
+</script>
+</body>
+</html>

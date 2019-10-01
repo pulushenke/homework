@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        function Student(name, age) {
+            this.name = name;
+            this.age = age;
+            var str = "";
+            this.intrs = function () {
+                for (var key in this) {
+                    if (typeof (this[key]) !== "function") {
+                        str += key + ":" + this[key];
+                    }
+                }
+                return str;
+            }
+        }
+
+        function Teather() {
+
+            this.intr1 = function () {
+                console.log("kaoshi");
+            }
+        }
+
+        var lilei = new Student("li lei", 18);
+        var jiang = new Teather();
+        Student.prototype = jiang;
+        var hmm = new Student("han mei mei", 18);
+        var obj = Object.getPrototypeOf(hmm);
+        console.log("intr1" in obj);
+        console.log();
+
+        /**在继承的基础上 扩展出自己的方法*/
+        function Flyer() {
+
+            this.load = function () {
+                console.log("上飞机");
+            }
+        }
+
+        function Boyin(content) {
+            this.content = content;
+            this.unload = function () {
+                console.log(this.content + "人滑行降落");
+            }
+        }
+
+        function Mv(content) {
+            this.content = content;
+            this.unload = function () {
+                console.log(this.content + "人垂直降落");
+            }
+        }
+
+
+        Boyin.prototype = new Flyer();
+        Mv.prototype = new Flyer();
+        Mv.prototype.ei = "fff";
+        var b = new Boyin(300);
+        var m = new Mv(50);
+        b.load();
+        m.load();
+        b.unload();
+        m.unload();
+        console.log();
+
+        var book = {
+            _year: 2004,
+            edition: 1
+        };
+        Object.defineProperty(book, "year", {
+            get: function () {
+                return this._year;
+            },
+            set: function (newValue) {
+                if (newValue > 2004) {
+                    this._year = newValue;
+                    this.edition += newValue - 2004;
+                }
+            }
+        });
+        book.year = 2005;
+        console.log(book.edition);
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .d1 {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background-color: #4f5bff
+        }
+
+        .d2 {
+            position: absolute;
+            left: 25px;
+            bottom: 25px;
+            width: 150px;
+            height: 150px;
+            background-color: orange;
+        }
+
+        .d3 {
+            position: absolute;
+            left: 25px;
+            bottom: 25px;
+            margin: 0 auto;
+            width: 100px;
+            height: 100px;
+            background-color: crimson;
+        }
+    </style>
+</head>
+<body>
+<div class="d1">
+    <div class="d2">
+        <div class="d3"></div>
+    </div>
+</div>
+<input type="text" id="name" name="name">
+<input type="submit" id="btnSubmit" value="提交">
+<script>
+    var divs = document.querySelectorAll("div");
+    for (var i = 0; i < divs.length; i++) {
+
+        divs[i].onclick = bian;
+
+    }
+
+    function bian() {
+        var ent = window.event || arguments[0];
+        var src = ent.target || ent.srcElement;
+        src.style.backgroundColor = "yellow";
+        /*src.style.backgroundColor = "";*/
+        ent.cancelBubble = true;
+    }
+</script>
+
+</body>
+</html>

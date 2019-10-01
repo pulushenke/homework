@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 500px;
+            text-align: center;
+
+        }
+
+        table td, th {
+            border: 1px solid blue;
+
+        }
+
+
+    </style>
+</head>
+<body>
+<div>
+    <input type="button" value="1"/>
+    <input type="button" value="2"/>
+    <input type="button" value="3"/>
+    <input type="button" value="4"/><br/>
+    <input type="button" value="C"/>
+    <input type="button" value="+"/>
+    <input type="button" value="-"/>
+    <input type="button" value="="/>
+</div>
+<br/>
+<div>
+    <textarea name="" id="" style="resize:none;width: 300px;height: 100px"></textarea>
+</div>
+<form>
+    <input type="password" name="pwd"/>
+    <input id="btnsub" type="submit"/></form>
+
+<script>
+
+
+
+
+
+    var evt = document.querySelector("div");
+    var txt = document.querySelector("textarea");
+    evt.onclick = function () {
+        var event = window.event || arguments[0];
+        var src = event.target || event.srcElement;
+        if (src.nodeName == "INPUT") {
+            switch (src.value) {
+                case "C":
+                    txt.value = "";
+                    break;
+                case"=":
+                    var r = null;
+                    try {
+                        r = eval(txt.value);
+                    } catch (err) {
+                        r = err;
+                    }
+                    txt.value = r;
+                    break;
+                default:
+                    txt.value += src.value;
+            }
+        }
+    };
+    var txtPwd = document.getElementsByName("pwd")[0];
+    console.log(txtPwd);
+    var btnSub = document.getElementById("btnsub");
+
+    btnSub.onclick = function () {
+        var evt = window.event || arguments[0];
+
+        if (!/^\d{6}$/.test(txtPwd.value)) {
+
+            if (evt.preventDefault) {
+                evt.preventDefault();
+            } else {
+                evt.returnValue = false;
+            }
+        }
+    };
+/**HTMLDOM 表单*/
+    var data1 = [
+        {"id": 1, "name": "可口可乐", "price": 3.5, "count": 30},
+        {"id": 2, "name": "百事可乐", "price": 3.0, "count": 50},
+        {"id": 3, "name": "非常可乐", "price": 2.5, "count": 10}
+    ];
+
+
+    var table = null;
+
+    function createTable(data) {
+        var frag = document.createDocumentFragment();
+        table = document.createElement('table');
+        var thead = table.createTHead();
+        var trRows = thead.insertRow(thead.rows.length);
+        var first = data[0];
+        for (var key in data[0]) {
+            var th = document.createElement('th');
+            th.innerHTML = key;
+            trRows.appendChild(th);
+
+        }
+        th = document.createElement('th');
+        trRows.appendChild(th);
+        th.innerHTML = "操作";
+        var tbody = document.createElement("tbody");
+        table.appendChild(tbody);
+        for (var i = 0; i < data.length; i++) {
+            trRows = tbody.insertRow(tbody.rows.length);
+            for (var k in data[i]) {
+                var td = trRows.insertCell(trRows.cells.length);
+                td.innerHTML = data[i][k];
+            }
+            td = trRows.insertCell(trRows.cells.length);
+            var btn = document.createElement('button');
+            btn.innerHTML = "删除";
+            td.appendChild(btn);
+            btn.onclick = function () {
+                var delTr = this.parentNode.parentNode;
+                var name = delTr.cells[1].innerHTML;
+                if (confirm("是否删除" + name + "?")) {
+                    table.deleteRow(delTr.rowIndex);
+                }
+            };
+        }
+
+        frag.appendChild(table);
+
+        document.body.appendChild(frag);
+    }
+
+    createTable(data1);
+
+    /*var table = null;
+
+    function createTable() {
+        table = document.createElement("table");
+        var newRow = table.insertRow();
+        var first = data[0];
+        for (var key in first) {
+            var td = newRow.insertCell(newRow.cells.length);
+            td.innerHTML = key;
+        }
+        td = newRow.insertCell();
+        td.innerHTML = "caozuo";
+        document.body.appendChild(table);
+        for (var i = 0; i < data.length; i++) {
+            tr = table.insertRow(table.rows.length);
+            for (var k in data[i]) {
+                td = tr.insertCell(tr.cells.length);
+                td.innerHTML = data[i][k];
+            }
+            td = tr.insertCell(tr.cells.length);
+            var btn = document.createElement("button");
+            btn.innerHTML = "删除";
+            td.appendChild(btn);
+            btn.onclick = function () {
+                var delTr = this.parentNode.parentNode;
+                var name = delTr.cells[1].innerHTML;
+                if (confirm("是否删除" + " " + "\"" + name + "\"" + "?")) {
+
+                    table.deleteRow(delTr.rowIndex);
+                }
+
+            };
+        }
+
+
+    }*/
+
+    /* createTable();*/
+
+
+</script>
+</body>
+</html>

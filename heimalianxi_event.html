@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border: 1px solid #3c3c3c;
+            top: 0;
+            left: 0;
+        }
+
+        #box #box_head {
+            background-color: blue;
+            color: #fff;
+            cursor: move;
+
+        }
+
+        #login {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #3c3c3c;
+            background-color: #fff;
+            position: absolute;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        .cover {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            display: none;
+        }
+
+        #eject a {
+            text-decoration: none;
+        }
+
+        #title {
+            background-color: blue;
+            cursor: move;
+            color: #fff;
+        }
+
+        #box_1 {
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+        }
+
+        .small {
+            position: relative;
+            top: 0;
+            left: 0;
+
+        }
+
+        .cover_1 {
+            width: 100px;
+            height: 100px;
+            opacity: 0.9;
+            background-color: yellow;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        .box_2 {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #3c3c3c;
+            margin: 10px;
+        }
+
+        .scroll {
+            height: 100%;
+            width: 10px;
+            background-color: #ddd;
+            float: right;
+            position: relative;
+        }
+
+        .scroll .bar {
+            width: 10px;
+            background-color: red;
+        }
+
+        .content {
+            width: 290px;
+            float: left;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- 
+    滚动条 -->
+    <div class="box_2" id="box_2">
+        <div class="content" id="content">
+            刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘
+            刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘
+            刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘
+            刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘小刘刘
+        </div>
+        <div class="scroll" id="scroll">
+            <div id="bar" class="bar"></div>
+        </div>
+    </div>
+    <!-- 
+    滚动条 -->
+
+    <!-- 放大镜 -->
+    <div id="box_1">
+        <div class="small">
+            <img src="./img/xz.jpg" alt="">
+            <div class="cover_1"></div>
+        </div>
+        <div class="big">
+            <img src="" alt="">
+        </div>
+    </div>
+
+    <!-- 放大镜 -->
+    <div id="box">
+        <div id="box_head"> 注册信息(可以拖拽)</div>
+        <div id="close" 关闭></div>
+    </div>
+    <div id="eject"> <a href="javascript:void(0);">点击弹出</a> </div>
+    <div id="login">
+        <div id="title">登陆会员</div>
+        <form action="" method="get">
+            <div>
+                <label for="">用户名</label><input type="text" name="" id="" placeholder="请输入" />
+            </div>
+            <div>
+                <label for="">登录密码</label><input type="password" value="" placeholder="请输入" />
+            </div>
+
+            <input type="submit" value="登录会员">
+        </form>
+        <div class="close">关闭</div>
+    </div>
+    <div class="cover"></div>
+    <script>
+        // 1.根据内容的大小，计算滚动条的高度
+        let [box_2, content, scroll, bar] = [document.querySelector('#box_2'), document.querySelector('#content'),
+            document.querySelector('#scroll'), document.querySelector('#bar')
+        ];
+        // bar的高度 / scroll的高度= box_2 / content
+        let barHeight = 0;
+        if (content.scrollHeight > box_2.clientHeight) {
+
+            barHeight = box_2.clientHeight / content.scrollHeight * scroll.clientHeight;
+            bar.style.height = barHeight + 'px';
+            console.dir(bar);
+        }
+
+
+            
+        var smallImg = document.querySelector('.small');
+        var cover_1 = document.querySelector('.cover_1');
+        var box_1 = document.querySelector('#box_1');
+
+
+        smallImg.onmouseover = function () {
+            cover_1.style.display = 'block';
+
+        }
+        smallImg.onmouseout = function () {
+            cover_1.style.display = 'none';
+        }
+        smallImg.onmousemove = function (e) {
+            let x = e.pageX - box_1.offsetLeft;
+            let y = e.pageY - box_1.offsetTop;
+            x -= cover_1.offsetWidth / 2;
+            y -= cover_1.offsetHeight / 2;
+            // x = x < 0 ? 0 : x;
+            // y = y < 0 ? 0 : y;
+            if (x < 0) {
+                x = 0;
+
+            } else if (x > smallImg.offsetWidth - cover_1.offsetWidth) {
+                x = smallImg.offsetWidth - cover_1.offsetWidth;
+            }
+
+            if (y < 0) {
+                y = 0;
+
+            } else if (y > smallImg.offsetHeight - cover_1.offsetHeight) {
+                y = smallImg.offsetHeight - cover_1.offsetHeight;
+            }
+            cover_1.style.left = x + 'px';
+            cover_1.style.top = y + 'px';
+        }
+        //点击连接 弹出模态框
+        var eject = document.querySelector("#eject a");
+        var login = document.querySelector('#login');
+        var cover = document.querySelector('.cover');
+        var closeEject = document.querySelector('.close');
+        var title = document.querySelector('#title');
+
+        eject.onclick = function () {
+            login.style.display = 'block';
+            cover.style.display = 'block';
+            return false;
+        }
+        closeEject.onclick = function () {
+            login.style.display = 'none';
+            cover.style.display = 'none';
+        }
+        title.onmousedown = function (e) {
+            let x = e.pageX - login.offsetLeft;
+            let y = e.pageY - login.offsetTop;
+            document.onmousemove = function (e) {
+                let loginX = e.pageX - x;
+                let loginY = e.pageY - y;
+                login.style.left = loginX + 'px';
+                login.style.top = loginY + 'px';
+            }
+            document.onmouseup = function () {
+                document.onmousemove = null;
+            }
+        }
+
+        var box_head = document.getElementById('box_head');
+        var box = document.getElementById('box');
+
+        //当鼠标按下求鼠标在盒子中的位置 求的盒子的位置
+        box_head.onmousedown = function (event) {
+            var mouseBoxPosX = event.pageX - box.offsetLeft;
+            var mouseBoxPosY = event.pageY - box.offsetTop;
+            document.onmousemove = function (e) {
+                //鼠标的位置 = 
+                var boxX = e.pageX - mouseBoxPosX;
+                var boxY = e.pageY - mouseBoxPosY;
+                box.style.left = boxX + 'px';
+                box.style.top = boxY + 'px';
+
+            }
+
+        }
+
+        document.onmouseup = function () {
+            document.onmousemove = null;
+        }
+    </script>
+</body>
+
+</html>

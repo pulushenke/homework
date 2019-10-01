@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+	</head>
+
+	<body>
+		<script>
+			/**创建XMLHttpRequest对象*/
+			function createXhr() {
+				var xhr = null;
+				if(window.XMLHttpRequest) {
+					xhr = new XMLHttpRequest();
+				} else {
+					xhr = new ActiveXObject("Microsoft.XMLHttp");
+				}
+				return xhr;
+			}
+
+			function testXhr() {
+				window.alert(createXhr());
+
+			}
+            
+        
+			/**方法
+			 * 1.open(method,url,asyn)
+			 * asyn:bool类型,表示是同步（false）还是异步（true）提交，默认true
+			 * 2.send(body)
+			 * 发送请求，body是请求体,当请求方式为get的时候，body必须为null,
+			 * 当请求方式为post的时候，body为具体请求提交的数据，格式为："key=value&key1=value1&key2=value2"
+			 * 3.setRequstHeader()
+			 * 指定请求消息头
+			 * 什么时候用？当请求方式为post时，必须使用setRequestHeader重新设置请求消息头，否则请求数据获取不到
+			 *属性
+			 * 1.onreadystatechange
+			 * 当准备状态改变的时候，要调用的函数（回调函数）是谁
+			 * 2.readyState
+			 * 请求的状态，请求状态必为以下5种状态之一
+			 * 0：尚未初始化
+			 * 1：初始化完成，正在发送请求
+			 * 2：请求完成
+			 * 3：请求成功，正在接收响应数据
+			 * 4：xhr数据接收（响应）成功；注意：readyState为4的时候，可以处理响应数据
+			 * 3.status
+			 * 由服务器返回的状态码
+			 * 200：请求成功
+			 * 404：资源未找到
+			 * 500：服务器内部错误，如PHP代码写错了...
+			 * 注意：完整的判断xhr是否与服务器进行成功的请求响应必须是xhr.readyState==4&&xhr.status==200
+			 * 4,responseText
+			 * 服务器返回的文本
+			 * 5.responseXML
+			 * 服务器返回的xml文体
+			 * 发送异步请求的步骤
+			 * 1.获取（创建）AJAX对象：获取XMLhttpRequests对象
+			 * 2.创建请求：调用xhr的open方法
+			 * 3.设置回调函数：指定xhr的onreadystatechange事件
+			 * 4.发送请求 案例在XAMPP里
+			 * 请求提交方式
+			 * 1.get
+			 * http://url/XXX.php?name=abc&age=18&gendr=male
+			 * php:$_REQUEST["name"]
+			 * 2.post
+			 * xhr.open("post".url,true)
+			 * xhr.send("name=zs&age=18&gender=male")
+			 * 注意：必须使用setRequestHeader()显示更改Content-Type消息头的值为application/x-www-form-urlencoded
+			 * 6.表单提交数据的Content-Type 请求消息头
+			 * <form enctype="" ></form>
+			 * text/plain
+			 * application/x-www-form-urlencoded(默认)
+			 * multipart/form-data(用于传输文件)*/
+		</script>
+		<input type="button" value="测试XHR" onclick="testXhr()">
+	</body>
+
+</html>

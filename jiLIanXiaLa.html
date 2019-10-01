@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .hide {
+            display: none
+        }
+
+
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    /**极联下拉列表：select元素：conchange:选中项发生改变时触发
+     * selectedindex
+     * 何时用this:触发事件的对象，就是取值的对象
+     */
+    var data = [
+        [],
+        [
+            {name: "东城区", value: 101},
+            {name: "西城区", value: 102},
+            {name: "海淀区", value: 103}
+        ],
+        [
+            {name: "河东区", value: 201},
+            {name: "河西区", value: 202},
+            {name: "南开区", value: 203}
+        ],
+        [
+            {name: "哈尔滨市", value: 301},
+            {name: "齐齐哈尔市", value: 302},
+            {name: "大庆市", value: 303}
+        ]
+    ]
+</script>
+<select name="provs" onchange="loadCities(this)">
+    <option>--请选择</option>
+    <option>--北京市</option>
+    <option>--天津市</option>
+    <option>--黑龙江省</option>
+
+</select>
+
+<select name="cities" class="hide"></select>
+<script type="text/javascript">
+    function loadCities(selProvs) {
+        var citiesInd = data[selProvs.selectedIndex];
+        var cities = document.getElementsByName("cities")[0];
+        var frag = document.createDocumentFragment();
+        cities.className = (citiesInd.length === 0 ? "hide" : "");
+        cities.innerHTML = "";
+
+        for (var i = 0; i < citiesInd.length; i++) {
+            var opt = document.createElement("option");
+            opt.value = citiesInd[i].value;
+            opt.innerHTML = citiesInd[i].name;
+            frag.appendChild(opt);
+
+
+        }
+        cities.appendChild(frag);
+    }
+</script>
+</body>
+</html>

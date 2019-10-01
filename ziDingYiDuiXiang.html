@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="console.log(calc.add())">加法</button>
+<button onclick="console.log(calc.minus())">减法</button>
+
+<script type="text/javascript">
+    /**
+     * 面向过程:以任务的实行步骤为编程顺序
+     * 方法:封闭并重用复杂任务的方式
+     * 问题:功能和功能操作的数据分离
+     * 面向对象:在设计过程中,一切以描述一个对象为基本原则
+     * 什么是对象:封装现实中一个事物的数据和功能的结构
+     * 创建自定义对象:3种；
+     * 直接量:var obj = {属性名:属性直...}
+     * 访问属性?obj.属性名
+     * 可能不存在的属性,使用之前,必须先判断存在,再使用:
+     * 判断任意是否包含属性:
+     * if(obj.hasOwnProperty)("属性名")
+     * 如果包含返回true,否则返回false
+     * 判断内置对象,浏览器对象兼容性:
+     * if(obj.属性名) undefinde,null,0,NAN,"",都是false其余都是true
+     * 自定义对象创建的依据?需求中的名词!
+     * 需求中的动词:对象的功能/方法
+     * 对象的属性?表,证,单,据
+     * 对象中的方法:对象中的功能.
+     * 对象中的方法本本质上就是一个特殊的属性
+     * 对象中的方法是操作数据的功能
+     * 对象自己的方法,如何访问自己的属性:this指代当前对象
+     * 什么是this?栈中一个指针,永远指向当前正在操作的对象
+     * 面向对象三大特点:封装,继承,多态
+     * 封装?将数据和对数据的操作,包装为一个整体,过程就叫封装.
+     * 继承:使用现有类型,创建出新的类型.新类型中可以使用现有类型的属性和功能,并且新类型可以扩展出现有
+     * 类型没有的属性和功能
+     * 对象模板/构造函数:专门用来反复创建相同结构的对象的专门方法
+     * 如何定义构造函数:function 类型名(属性值参数...){this.属性名 = 属性值;}
+     * new 构造函数():new:开空间,构造函数:划分空间结构;初始化内部属性的值
+     * 重写:如果子类型认为父类型的方法不好用可以重新定义和父类型完全同名的方法实现覆盖
+     * 一般自定义类型对象,都会重写toString方法
+     * 何时修改构造函数的prototype属性：
+     * 一个类型希望使用已有对象的现成功能
+     * 修改构造函数的原型可以让对象使用父类型的功能--继承
+     * 语法:子类型构造函数:prototype=new 父类型()*/
+    var jf;
+    jf = {
+        name: "姜峰",
+        age: 27,
+        selfInt: function () {
+            console.log("我的名字叫:" + this.name + " " + "我的年龄:" + this.age);
+        },
+        tostring: function () {
+              var str1 = " ";
+            for (var key in this) {
+                if (typeof (this[key]) !== "function")
+                    str1 += key + ":" + this[key];
+            }
+            return str1;
+
+
+        }
+    };
+    // console.log(jf.tostring());
+    jf.selfInt();
+    jf = null;
+
+    /**简单的计数器*/
+    var calc = {
+        n: undefined,
+        m: undefined,
+        add: function () {
+            return this.n + this.m;
+        },
+        minus: function () {
+            return this.n - this.m;
+        }
+    };
+
+
+    /*calc.n = parseFloat(prompt("请输入"));
+    calc.m = parseFloat(prompt("请输入"));*/
+    function Student1(name, age) {
+        this.name = name;
+        this.age = age;
+        this.intr = function () {
+            console.log(this.name + " " + this.age);
+        }
+    }
+
+    var ff = new Student1("姜峰", 30);
+    console.log(ff);
+    console.log(ff.name);
+
+    function trim1(str) {
+        var reg = /(^\s+)|(\s+$)/g;
+        return str.replace(reg, "");
+    }
+
+    var stri = "    風  ";
+    String.prototype.trim1 = function () {
+        var reg = /(^\s+)|(\s+$)/g;
+        return this.replace(reg, "");
+    };
+    console.log(stri.trim1());
+
+    function Thcter(name, age) {
+
+        this.test = function () {
+            console.log("出题考试");
+        }
+    }
+
+    var thr = new Thcter();
+
+    var jfd = new Student1("頂頂頂", 18);
+    var obj = Object.getPrototypeOf(jfd);
+
+    console.log(obj);
+    console.log("intr" in obj);
+    ;
+    console.log(jfd.intr());
+
+    console.log(thr.isPrototypeOf(jfd));
+
+    var monkey = {
+        hair: true,
+        feeds: "bananas",
+        breathes: "air"
+    };
+
+    function Human() {
+        this.ite =function () {
+            console.log("你妹");
+        }
+    }
+
+    Human.prototype =new Student1;
+    var gogol = new Human("人类", 500);
+
+
+    console.log(gogol.age);
+    console.log(gogol.ite());
+    console.log(Object.getPrototypeOf(gogol));
+
+
+    /*    console.log("name" in monkey);
+
+        console.log(gogol.feeds = "wowowo");
+         console.log(gogol.name);*/
+
+
+</script>
+
+</body>
+</html>

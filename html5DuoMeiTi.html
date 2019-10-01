@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei";
+        }
+
+        #container {
+            width: 500px;
+            margin: 10px auto;
+            border: 1px solid #ccc;
+            background: #999;
+            border-radius: 5px;
+            padding: 5px;
+
+        }
+
+        #mName,
+        #mTime {
+            float: left;
+            width: 250px;
+
+        }
+
+
+        #changeMusic,
+        #mTime {
+            text-align: right;
+        }
+
+        #player {
+            margin-top: 20px;
+        }
+
+        #media {
+            width: 400px;
+
+        }
+
+        ul {
+            list-style: none;
+
+            padding: 0;
+        }
+
+        #mList {
+            height: 250px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: red;
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+
+    <section id="container">
+        <nav id="meun">
+            <div id="mName">歌曲名称</div>
+            <div id="mTime">00：00</div>
+            <div style="clear:both;"></div>
+        </nav>
+        <nav id="player">
+            <audio id="media" controls></audio>
+        </nav>
+        <nav id="mList">
+            <div>
+                <ul id="mm">
+
+
+                </ul>
+            </div>
+        </nav>
+        <nav>
+            <div id="changeMusic">
+                <a href="javascript:;">换歌</a>
+            </div>
+        </nav>
+    </section>
+
+
+    <script>
+        var musicNames = [],
+            musicSrcs = [],
+            randomNums = [];
+
+
+
+
+        const RANDOMNUM = 3;
+
+        function initial() {
+            musicNames[0] = "ganxienilaiguo.mp3";
+            musicNames[1] = "kusha.mp3";
+            musicNames[2] = "liushengjianying.mp3";
+            musicNames[3] = "naxiehua.mp3";
+            musicNames[4] = "taopaojihua.mp3";
+            musicSrcs[0] = "music/ganxienilaiguo.mp3";
+            musicSrcs[1] = "music/kusha.mp3";
+            musicSrcs[2] = "music/liushengjianying.mp3";
+            musicSrcs[3] = "music/naxiehua.mp3";
+            musicSrcs[4] = "music/taopaojihua.mp3";
+
+        }
+        /**判断R在Randomnums中是否已经存在*/
+
+        function checkRExists(r) {
+
+
+            for (let i = 0; i < randomNums.length; i++) {
+
+                if (randomNums[i] == r) {
+                    return true;
+                }
+
+            }
+
+
+
+            return false;
+        }
+
+        /*用于生成指定个数随机数如果碰到重复的数字则重新生成*/
+
+        function generateRandom() {
+            var i = 0;
+            while (true) {
+                var r = parseInt(Math.random() * musicNames.length);
+                // console.log(r);
+
+                //判断R是不是生成过
+
+
+                if (checkRExists(r)) {
+
+                    continue;
+
+                }
+                //将R保存进Randomnums并组i++
+                randomNums.push(r);
+
+
+
+                //循环退出条件
+                if (i == RANDOMNUM) {
+                   return;
+                }
+                //console.log(i);
+                i++
+            }
+
+        }
+
+        //加载更换歌曲的方法
+
+        function loadMusic() {
+            //console.log(randomNums)
+            generateRandom();
+            $.each(randomNums, function(i, v) {
+                var mName = musicNames[v];
+                var mSrc = musicSrcs[v];
+                var aTar = $("<a>");
+
+                aTar.html(mName).attr("href", "javascript:play()");
+                var liTar = $('<li>');
+                liTar.append(aTar);
+                $('#mm').append(liTar);
+
+
+            })
+
+
+        }
+        $(document).ready(function() {
+            initial();
+            loadMusic();
+
+        })
+    </script>
+
+</body>
+
+</html>

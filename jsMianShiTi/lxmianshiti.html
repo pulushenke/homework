@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+    window.onload = function() {
+        combo("get-element-by-id");
+        obj1();
+        arrRemoval([5, 8, 5, 7, 9, 8, 1, 0]);
+        rev([3, 6, 2, 4, 1, 5]);
+        des([3, 6, 2, 4, 1, 5]);
+    };
+
+    function des(arr) {
+        var arr1 = [];
+
+        arr.map(function(cv, i) {
+        	return something;
+        });
+        while (arr.length) {
+            arr1.push(Math.max.apply(this, arr));
+            arr.length--;
+        }
+
+
+
+        console.log(arr1);
+    }
+
+    function rev(arr) { /**反转*/
+        var arr1 = [];
+        arr.forEach(function(v, i) {
+            arr1.unshift(v);
+        });
+        console.log(arr1);
+    }
+
+    function combo(str) { /*改写字符串首字两种*/
+
+        var arr = str.split('-');
+        arr.forEach(function(v, i) {
+            arr[i] = v.charAt(0).toUpperCase() + v.substr(1);
+
+        });
+        console.log(arr.join(''));
+        /*  var strArr = str.split('-');
+        var strRes = "";
+        strArr.forEach(function(v, i) {
+            strRes += v.charAt(0).toUpperCase() + v.substr(1);
+
+        });
+        console.log(strRes);
+    */
+    }
+
+    function obj1() { /* 练习对象原型*/
+        var a = new Object();
+
+        a.value = 1;
+
+        b = a;
+        b.value = 2;
+        console.log(a.value);
+
+    }
+
+    function arrRemoval(arr) { /*数组去重两种*/
+        var arr1 = [];
+        arr.forEach(function(v, i) {
+            if (arr1.indexOf(v) === -1) {
+                arr1.push(v);
+
+            }
+        });
+
+        /*
+            var arr1 = [];
+            var arrObj = {};
+            arr.forEach(function(v, i) {
+                if (!arrObj[v]) {
+                    arr1.push(v);
+                    arrObj[v] = 1;
+                }
+            });
+            */
+        return console.log(arr1);
+
+    }
+    </script>
+</body>
+
+</html>

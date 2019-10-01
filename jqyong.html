@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 500px;
+        }
+
+        td {
+            border: 1px solid #000;
+        }
+
+    </style>
+</head>
+<body>
+<table id="table">
+    <tr>
+        <td>书名</td>
+        <td>数量</td>
+        <td>价格</td>
+        <td>操作</td>
+    </tr>
+    <tr>
+        <td><input type="text" value=""/></td>
+        <td><input type="text" value=""/></td>
+        <td><input type="text" value=""/></td>
+        <td><input id="tj" type="button" value="添加"/></td>
+    </tr>
+</table>
+<script>
+    var jsonTable = [
+        {"name": "一叶书", "cont": "15", "qian": "200"},
+        {"name": "弃天帝", "cont": "20", "qian": "300"},
+        {"name": "风之痕", "cont": "25", "qian": "400"}
+    ];
+
+    jsonTable.forEach(function (v) {
+        console.log(v.name + " " + v.cont + " " + v.qian)
+    });
+    $(jsonTable).each(function () {
+        console.log(this.name + " " + this.cont + " " + this.qian)
+
+    });
+    for (var i = 0; i < jsonTable.length; i++) {
+        console.log(jsonTable[i].name + jsonTable[i].cont + jsonTable[i].qian)
+    }
+    $(function () {
+
+        $(jsonTable).each(function () {
+            var $tr = $('<tr></tr>');
+            var $td = $('<td></td>');
+            var $btn = $('<input  type="button" value="删除">');
+            var $tdXg = $('<input type="button" name="xg" value="修改">');
+            $td.append($tdXg);
+            $td.append($btn);
+
+            var $tdJson = $('<td>' + this.name + '</td>' + '<td>' + this.cont + '</td>' + '<td>' + this.qian + '</td>');
+            $tdJson.appendTo($tr);
+
+            $tr.append($td);
+            $('table').append($tr);
+        });
+
+        /**添加*/
+        $('#tj').click(function () {
+            /**获取input的值*/
+            var ipt = $(this).parent().siblings().children();
+            $tr = $('<tr></tr>');
+            $td = $('<td></td>');
+            $btn = $('<input  type="button" value="删除">');
+            $tdXg = $('<input type="button" name="xg" value="修改">');
+            $td.append($tdXg);
+            $td.append($btn);
+            /**创建一行trtd,把input值放进td里*/
+            for (var i = 0; i < ipt.length; i++) {
+                $tdN = $('<td>' + $(ipt[i]).val() + '</td>').appendTo($tr);
+
+                $(ipt[i]).val('');
+            }
+
+            /**追加到table中*/
+            $tr.append($td);
+            $('table').append($tr);
+        });
+        /**删除*/
+        $('table').on('click', 'input[value="删除"]', function () {
+            $(this).parent().parent().remove();
+        });
+        /**修改*/
+        $('table').on('click', 'input[name="xg"]', function () {
+            if ($(this).val() === "修改") {
+                $(this).val('确定');
+                var tds = $(this).parent().siblings();
+                for (var i = 0; i < tds.length; i++) {
+                    $(tds[i]).html('<input type="text" value="' + $(tds[i]).text() + '" />');
+
+                }
+
+
+            } else {
+                $(this).val('修改');
+                var tds = $(this).parent().siblings();
+                for (var i = 0; i < tds.length; i++) {
+                    var ipt = $(tds[i]).children();
+                    $(tds[i]).text(ipt.val());
+
+                }
+            }
+
+        })
+
+    });
+
+</script>
+</body>
+</html>

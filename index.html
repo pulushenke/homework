@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+</head>
+
+<body>
+ 
+<button onclick="getCitiesByProv('黑龙江')">黑龙江</button>
+<button onclick="getCitiesByProv('吉林')">吉林</button>
+<button onclick="getCitiesByProv('辽宁')">辽宁</button>
+
+<script type="text/javascript">
+    //遍历二维数组
+
+    let cities = [
+        ["哈尔滨", "齐齐哈尔", "大庆"],
+        ["长春", "四平", "吉林"],
+        ["沈阳", "大连", "辽东"]
+        ];
+
+
+    for (var n = 0; n < cities.length; n++) {
+
+        for (var i = 0; i < cities[n].length; i++) {
+            console.log(cities[n][i]);
+        }
+    }
+
+
+    //	let provs = ["黑龙江", "吉林", "辽宁"];
+    //关联数组
+    /*	let cities = {d
+            "黑龙江": ["哈尔滨", "齐齐哈尔", "大庆"],
+            "吉林": ["长春", "四平", "吉林"],
+            "辽宁": ["沈阳", "大连", "辽东"]
+
+        }
+
+        function getCitiesByProv(prov) {
+            console.log(cities[prov].toString());
+        }
+
+        //队列测试
+        var n = [];
+        var customer = 5;
+        for(var i = 1; i <= customer; i++) {
+            n.push("乘客" + i);
+
+        }
+        n.push("我");
+        document.write("当前排前人数：" + " " + n + "<br />");
+        var qp = [];
+        while(customer > 0) {
+            qp.push(n.shift());
+            customer--
+        }
+        document.write("已成功抢票的：" + qp + "<br />");
+        document.write("最后没抢到的：" + n + "<br />");
+        //转为2进制
+        let bin = [];
+        var num = 117; //除2后的商
+        while(num != 0) {
+            bin.push(num % 2);
+            num = parseInt(num / 2);
+        }
+        bin.reverse();
+        document.write(bin.join(""));
+        //结尾入栈出栈
+        let bus = [];
+        bus.push("乘客1", "乘客2", "乘客3");
+
+        let last = bus.pop();
+        document.write(last + "<br />");
+        bus.unshift("神");
+        document.write(bus + "<br />");
+        bus.shift();
+        document.write(bus + "<br />");*/
+
+    /*		function sortASC() {
+
+        document.write(arr.sort(compare));
+    }
+
+    function sortDESC() {
+
+        document.write(arr.sort(comparef));
+
+    }
+    var arr = [3, 5, 2, 302, 23, 201, 43, 6, 1, 9, 0];
+    //比较器如何使用
+    document.write(arr.sort(comparef));
+
+    //比较器函数
+    //升序
+    function compare(a, b) {
+        return a - b;
+    }
+    //降序
+    function comparef(a, b) {
+        return -(a - b);
+    }
+*/
+    //对任意数组执行冒泡排序
+    /*************注意引用类型调用的方法里面可以不用返回,因为是引用类型,它引用的是堆中的一个地址**********************/
+    /*
+                function bubbleSort(arr) {
+                    for(let j = 1; j <= arr.length - 1; j++) {
+                        for(let i = 0; i < arr.length - j; i++) {
+                            if(arr[i] > arr[i + 1]) {
+                                let box = arr[i];
+                                arr[i] = arr[i + 1];
+                                arr[i + 1] = box;
+                            }
+                        }
+                    }
+
+                }
+
+                bubbleSort(arr);
+
+                document.write(arr);*/
+    /*	let arr = [1, 2, 3, 12, 23, 123, 31];
+    var subArr = arr.slice();
+    document.write(arr.reverse() + "<br />");
+
+    arr.splice(4,0,120,107);
+    document.write(arr + "<br />");
+    document.write(subArr + "<br />");
+
+    var chars = ['h', 'e', 'l', 'l', 'o'];
+    var str = chars.join('');
+    document.write(str);
+*/
+    //冒泡排序
+    /*let arr = [6, 5, 4, 3, 2, 1];
+    for(let n = 1; n <= arr.length - 1; n++) {
+        for(let i = 0; i < arr.length - n; i++) {
+            if(arr[i] > arr[i + 1]) {
+                let box = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = box;
+            }
+        }
+    }
+
+    document.write(arr);*/
+    /*	var ipt;
+        var emps = [];
+        while((ipt = prompt("输入员工姓名")) != "exit") {
+            emps[emps.length] = ipt;
+            document.write(emps);
+        }*/
+
+    /*var num = 9;
+    for(var num = 1; num <= 9; num++) {
+        var str = "";
+        for(var i = 1; i <= num; i++) {
+            str += i + "*" + num + "=" + (i * num) + " ";
+        }
+        console.log(str);
+
+    }*/
+
+    /*let newsYear = 2001;
+    let rYear = 0
+    while(rYear < 5) {
+
+        if((newsYear % 4 == 0 && newsYear % 100 != 0) || newsYear % 400 == 0) {
+            console.log(newsYear);
+            rYear++
+
+        }
+        if(rYear > 0) {
+            newsYear += 4
+        } else {
+            newsYear++
+        }
+
+    }
+
+    //简化写法
+    for(var i = 1, n = 0; i <= 100; n += i++);
+    console.log(n);*/
+
+    //取任意最小到最大的随机数的公式
+    //(Math.random()*(max - min +1) + min)
+    /*var sjNum = parseInt(Math.random() * (10 - 0 + 1) + 0);
+    //猜数游戏
+    //do while 至少执行一次代码
+    do {
+        var ipt = prompt("你猜：");
+        if(ipt != "") {
+            if(ipt == "exit") {
+                alert("不想玩了");
+                break;
+            } else {
+                ipt = parseInt(ipt);
+                if(ipt > sjNum) {
+                    alert("猜大了");
+                } else if(ipt < sjNum) {
+                    alert("猜小了");
+                } else if(isNaN(ipt)) {
+                    alert("不是数字");
+                } else {
+                    alert("猜对了");
+                }
+            }
+        } else {
+            alert("不能为空");
+        }
+
+    }
+    while (ipt != sjNum);*/
+
+    //	let fx = parseFloat(prompt("请输入分数"));
+    /*	if(fx >= 90) {
+            alert("优秀A");
+
+        } else if(fx >= 80) {
+            alert("良好B");
+
+        } else if(fx >= 60) {
+            alert("及格C");
+
+        } else {
+            alert("差D");
+
+        }*/
+    /*	switch(true) {
+        case fx >= 90:
+            alert("优秀A");
+            break;
+        case fx >= 80:
+            alert("良好B");
+            break;
+        case fx >= 60:
+            alert("及格C");
+            break;
+        default:
+            alert("差D");
+    }
+*/
+    /*let price = parseFloat(prompt("请输入单价"));
+    let count = parseFloat(prompt("请输入数量"));
+    let skj = parseFloat(prompt("请输入收款"));
+    let total = price * count;
+    //	total = total >= 500 ? total * 0.8 : total;
+    if(total >= 500) {
+        total *= 0.8;
+    }
+
+    document.write("应收金额" + total.toFixed(2) + "<br>");
+    if(skj > total) {
+        let change = skj - total;
+        document.write("还差：" + change.toFixed(2));
+
+    } else {
+        let change = total - skj;
+        document.write("找零：" + change.toFixed(2));
+
+    }*/
+    /*	if(skj < total) {
+            document.write("还差：" + -change.toFixed(2));
+
+        } else {
+            document.write("找零：" + change.toFixed(2));
+        }*/
+
+    /*var maxNum;
+    function max(a, b, c) {
+        maxNum = a > b ? a : b;
+        return maxNum = maxNum < c ? c : maxNum;
+    }
+    alert(max(89, 180, 100))*/
+    /*let inputGz = parseInt(prompt("请输入工资"));
+    inputGz >= 20000 ? alert("高工资") :
+        inputGz >= 8000 ? alert("中高工资") :
+        alert("普通工资");
+       function num (a,b){
+           return a + b;
+       }
+       alert(num(10,15));*/
+    /*var year = parseInt(prompt("请输入年代"));
+    var isLeapYear = (year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)
+    isLeapYear ? alert("输入的年代是润年") : alert("输入的年代不是润年");*/
+</script>
+</body>
+
+</html>

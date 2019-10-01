@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        table {
+            border-collapse: collapse;
+            width: 400px;
+            margin: 0 auto;
+            height: 35px;
+            text-align: center;
+
+        }
+
+        table, th, td {
+            border: 1px solid #4f5bff;
+        }
+
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    var data = [
+        {"ename": "Tom", "salary": 3500, "age": 25},
+        {"ename": "John", "salary": 3800, "age": 28},
+        {"ename": "Mary", "salary": 3600, "age": 25}
+    ];
+    var frag = document.createDocumentFragment();
+    var table = document.createElement("table");
+    frag.appendChild(table);
+    var tr = document.createElement("tr");
+    table.appendChild(tr);
+    for (var key in data[0]) {
+        var th = document.createElement("th");
+        th.innerHTML = key;
+        tr.appendChild(th);
+    }
+    for (var i = 0; i < data.length; i++) {
+        var tr1 = document.createElement("tr");
+        table.appendChild(tr1);
+        for (var key1 in data[i]) {
+            var td = document.createElement("td");
+            td.innerHTML = data[i][key1];
+            tr1.appendChild(td);
+        }
+
+    }
+    document.body.appendChild(frag);
+    
+
+    
+    /**文档片段：内存中专门临时保存一个子树结构的容器
+     * 好处：避免闪屏，提高子树结构的加载效率
+     * 如何使用文档片段2步：
+     * 1先创建一个文档片段：var frag = document.createDocumentFragment();
+     * 2将元素先添加到片段中，在片段中组合frag.appendChild(子元素)
+     * 3将文档片段作为整体，挂载到页面中 parentNode.appendChild(frag);
+     * 何时使用：今后只要挂在复杂结构的子树时，都要先创建frag，再在frag中拼接子树，最后，将整个frag挂在到父元素下
+     */
+</script>
+</body>
+</html>

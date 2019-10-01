@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.2.1.min.js"></script>
+</head>
+<body>
+
+<h1 id="myDiv">我到底在干什么呢</h1>
+<input id="btnChange" type="button" value="点击">
+<input id="btnChange1" type="button" value="通过对象调用">
+<input id="btnChange2" type="button" value="带默认值的">
+
+<script>
+    $(document).ready(function () {
+        $('#btnChange').click(function () {
+            $('#myDiv').shadow(5, 0.1, -1);
+
+        });
+        /**通过对象映射调用以JSON对象的方式传递参数*/
+        $('#btnChange1').click(function () {
+            $('#myDiv').shadow_map({
+                slices: 10,
+                opacity: 0.1,
+                zIndex: -1
+            })
+        });
+        $('#btnChange2').click(function () {
+            $('#myDiv').shadow_defaults();
+        })
+
+    })
+</script>
+<script>
+    /**做元素阴影*/
+    jQuery.fn.shadow = function (slices, opacity, zIndex) {
+        this.each(function () {
+            var $obj = $(this); //将遍历出来的DOM元素转换成JQUERY对象
+            for (var i = 0; i < slices; i++) {
+                var $newObj = $obj.clone();
+                $newObj.css({
+                    position: 'absolute',
+                    left: $obj.offset().left + i,
+                    top: $obj.offset().top + i,
+                    opacity: opacity,
+                    zIndex: zIndex,
+                    margin: 0
+                }).appendTo('body');
+            }
+        })
+    };
+    /**通过参数映射完成参数设置后台服务器常用方式把方法都封装成对象调用*/
+    jQuery.fn.shadow_map = function (option) {
+        this.each(function () {
+            var $obj = $(this); //将遍历出来的DOM元素转换成JQUERY对象
+            for (var i = 0; i < option.slices; i++) {
+                var $newObj = $obj.clone();
+                $newObj.css({
+                    position: 'absolute',
+                    left: $obj.offset().left + i,
+                    top: $obj.offset().top + i,
+                    opacity: option.opacity,
+                    zIndex: option.zIndex,
+                    margin: 0
+                }).appendTo('body');
+            }
+        })
+    };
+    /**参数默认值
+     * 通过参数默认值，能够让参数映射更加灵活，有些数据可以不必传递，如果传递，则覆盖默认。*/
+    /**通过$.extend()合并对象
+     * 语法：var newObj = $.extend(obj,obj1,obj2,...)*
+     *       var newObj = $.extend({},obj,obj2...)*/
+    var Obj = {name: "jiangFeng", age: 18, hobby: "Read"};
+    var Obj1 = {name: "Tommy", gender: "Male"};
+    var newObj = $.extend(Obj, Obj1);
+    console.log(newObj);
+
+    /**带默认值*/
+    jQuery.fn.shadow_defaults = function (option) {
+        var defaults = {
+            slices: 10,
+            opacity: 0.5,
+            zIndex: -1,
+            offsetObj: function (i) {
+                var objs = {x: i, y: i * 5};
+                return objs;
+            }
+        };
+        var opts = $.extend(defaults, option);
+        this.each(function () {
+            var $obj = $(this); //将遍历出来的DOM元素转换成JQUERY对象
+            for (var i = 0; i < opts.slices; i++) {
+                /**获取回调函数对象*/
+                var offset = opts.offsetObj(i);
+                var $newObj = $obj.clone();
+                $newObj.css({
+                    position: 'absolute',
+                    left: $obj.offset().left + offset.x,
+                    top: $obj.offset().top + offset.y,
+                    opacity: opts.opacity,
+                    zIndex: opts.zIndex,
+                    margin: 0
+                }).appendTo('body');
+            }
+        })
+    };
+</script>
+</body>
+</html>

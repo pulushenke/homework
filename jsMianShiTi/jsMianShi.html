@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<input type="text"/>
+<input type="checkbox"/>
+<input type="checkbox"/>
+<input type="checkbox"/>
+
+<body>
+<script type="text/javascript">
+
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = d.getMonth() + 1;
+    month = month < 10 ? '0' + month : month;
+    var day = d.getDate();
+    day = day < 10 ? '0' + day : day;
+    console.log(year + '-' + month + '-' + day);
+
+    var str = 'get-element-by-id';
+
+    function combo(msg) {
+        var arr = msg.split("-");
+        for (var i = 1; i < arr.length; i++) {
+            console.log(arr[i]);
+            arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].substring(1);
+        }
+        msg = arr.join("");
+        return msg;
+    }
+
+    console.log(combo(str));
+
+
+    var foo = '11' - 3 + '5';
+    console.log(typeof foo);
+    console.log(foo);
+
+    var ipt = document.getElementsByTagName("input");
+    console.log(ipt);
+    var cbox = [];
+    var len = ipt.length;
+    while (len--) {
+        if (ipt[len].type === 'checkbox') {
+            cbox.push(ipt);
+        }
+    }
+    console.log(cbox.join(" "));
+    var arr = [3, 5, 2, 3, 5, 1];
+    var obj = {};
+    var newArr = [];
+    arr.forEach(function (value) {
+        if (!obj[value]) {
+            newArr.push(value);
+            obj[value] = 1;
+
+        }
+    });
+    console.log(toString.call(newArr));
+
+    console.log(newArr.join(" "));
+</script>
+</body>
+</html>

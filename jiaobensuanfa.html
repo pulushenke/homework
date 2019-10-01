@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script>
+			/**去除数组中任意多个值算法挑战**/
+
+			function destroyer(arr) {
+				// Remove all the values
+				var arr1 = [];
+				for(let i = 0; i < arguments.length; i++) {
+					arr1.push(arguments[i]);
+				}
+				arr1.shift();
+				var str1 = arr1.join("");
+				var arr3 = arr.filter(function(v) {
+					if(str1.indexOf(v) === -1) {
+						return v;
+					}
+
+				})
+				/*	for(let i = 0; i < arr.length; i++) {
+						if(str1.indexOf(arr[i]) === -1) {
+							arr2.push(arr[i]);
+						}
+
+					}*/
+
+				return arr3;
+			}
+
+			console.log(destroyer([1, 2, 3, 1, 2, 3], 2, 3));
+			/**删除数组中特定值算法挑战**/
+
+			function bouncer(arr) {
+				var arr1 = arr.filter(function(v) {
+					if(v) {
+						return v;
+					}
+
+				})
+				return arr1;
+			}
+
+			//	console.log(bouncer([false, null, 0, NaN, undefined, ""]));
+
+			/**数组查询算法挑战**/
+			function mutation(arr) {
+				var arr1 = arr[1].toLowerCase();
+				var arr = arr[0].toLowerCase();
+				var bl = true;
+				for(var i = 0; i < arr1.length; i++) {
+					var n = arr.indexOf(arr1[i]);
+					if(n === -1) {
+						bl = false;
+					}
+				}
+				return bl;
+				// var reg =new RegExp(arr1,"gi");
+
+				/* var rusult= reg.test(arr);
+				        
+				       reg.lastIndex = 1;
+				       console.log(reg.lastIndex);
+				    return rusult;*/
+
+			}
+
+			//console.log(mutation(["zyxwvutsrqponmlkjihgfedcba", "qrst"]));
+
+			/****数组截断算法挑战****/
+
+			function slasher(arr, howMany) {
+				// it doesn't always pay to be first
+
+				var arr1 = arr.splice(howMany);
+				return arr1;
+			}
+
+			// console.log(slasher([1, 2, 3], 3));
+
+			/**数组分割算法挑战**/
+
+			function chunk(arr, size) {
+				// Break it up.
+				var arr1 = [];
+				while(arr.length) {
+					arr1.push(arr.splice(0, size));
+					arr.length - size;
+				}
+				return arr1;
+			}
+
+			//	console.log(chunk(["a", "b", "c", "d"], 2));
+
+			/**字符串截取算法挑战***/
+			function truncate(str, num) {
+				var str1 = "";
+				if(str.length > num) {
+					if(num <= 3) {
+						str1 += str.substr(0, num) + "...";
+						return str1;
+					}
+					str1 += str.substr(0, num - 3) + "...";
+					return str1;
+
+				} else {
+					return str;
+				}
+
+			}
+
+			//console.log(truncate("A-tisket a-tasket A green and yellow basket", 100));
+
+			/**重复操作算法挑战**/
+
+			function repeat(str, num) {
+				// repeat after me
+				var str1 = "";
+
+				for(let i = 0; i < num; i++) {
+					str1 += str;
+				}
+				return str1;
+
+			}
+
+			//console.log(repeat("abc", 3));
+
+			/**确认末尾字符算法挑战**/
+			function confirmEnding(str, target) {
+				// "Never give up and good luck will find you."
+				// -- Falcord
+				var str1 = str.substr(-(target.length));
+				return str1 == target ? true : false;
+
+			}
+
+			// console.log(confirmEnding("He has to give me a new name", "me"));
+		</script>
+	</body>
+
+</html>

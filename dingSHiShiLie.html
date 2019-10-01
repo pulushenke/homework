@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #adv {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #4f5bff;
+            background-color: orangered;
+            position: fixed;
+            right: 0;
+            bottom: -202px;
+        }
+
+        #adv > span {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="adv">
+    <span>弹出式广告</span>
+</div>
+<script type="text/javascript">
+    function moov() {
+        var div = document.querySelector("#adv");
+        var cssstyle = document.defaultView.getComputedStyle(div, null);
+        var bottom = parseInt(cssstyle.bottom);
+        if (bottom !== 0) {
+            bottom += 1;
+            div.style.bottom = bottom + "px";
+            setTimeout(moov);
+        }
+    }
+
+    window.onload = function () {
+        setTimeout(moov, 1000);
+    }
+</script>
+</body>
+</html>

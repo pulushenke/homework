@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/tQuery.js"></script>
+    <!-- <script src="js/jquery-3.2.1.min.js"></script>-->
+    <script>
+        window.onload = function () {
+            /*  $('#myDiv').innerHTML = '<a href="http://www.baidu.com">百度</a>';
+
+              $('#container').html('<h1>hello world</h1>')*/
+
+            $('#container').text('woshishen');
+
+
+        };
+        function slideupClick () {
+           $('#myDiv1').slideUp()
+
+        }
+
+        console.log($('#myDiv1').slideUp());
+    </script>
+    <style>
+        #myDiv1 {
+            width: 200px;
+            height: 500px;
+            background-color: orange;
+        }
+
+    </style>
+</head>
+<body>
+<div id="myDiv" class="redBorder"></div>
+<div id="container" class="redBorder">ededededed</div>
+<div id="" class="gedBorder">
+    sdfsdfdsfdssd
+</div>
+
+<div id="myDiv1"></div>
+<input type="button" value="slideUp" onclick="slideupClick">
+</body>
+</html>

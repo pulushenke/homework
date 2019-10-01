@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 800px;
+            height: 600px;
+            background-color: #ccc;
+            position: relative;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container" class="container">
+
+    </div>
+    <script>
+        //工具对象
+        var Tools = {
+            getRandom: function (min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+        }
+        //创建方块构造函数
+        function Box(parent, options) {
+            options = options || {};
+            //设置对象的属性
+            this.backgroundColor = options.backgroundColor || 'red';
+            this.width = options.width || 20;
+            this.height = options.height || 20;
+            this.x = options.x || 0;
+            this.y = options.y || 0;
+            this.div = document.createElement('div');
+            this.parent = parent;
+            this.parent.appendChild(this.div);
+            this.init();
+        }
+        //初始化div(方块)的样式
+        Box.prototype.init = function () {
+            var div = this.div;
+            div.style.position = 'absolute';
+            div.style.backgroundColor = this.backgroundColor;
+            div.style.width = this.width + 'px';
+            div.style.height = this.height + 'px';
+            div.style.left = this.x + 'px';
+            div.style.top = this.y + 'px';
+        }
+        console.log(Tools.getRandom(5, 10));
+        // 随机生成方块
+        Box.prototype.random = function () {
+            //父容器的宽度 / div 的宽度 总共能放多少个方块
+            var x = Tools.getRandom(0, this.parent.offsetWidth / this.width - 1) * this.width;
+            var y = Tools.getRandom(0, this.parent.offsetHeight / this.height - 1) * this.height;
+            console.log(y);
+            console.log(x);
+            this.div.style.left = x + 'px';
+            this.div.style.top = y + 'px';
+        }
+        //创建对象
+        var container = document.querySelector('#container');
+        var div = new Box(container);
+        div.random();
+        //随机生成10个小方块
+
+        var timer = setInterval(random, 1000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var data = [
+        {
+            "id": 10, "name": "男装",
+            "sub": [
+                {"id": 101, "name": "正装"},
+                {"id": 102, "name": "T恤"},
+                {"id": 103, "name": "裤衩"}
+            ]
+        }, {
+            "id": 20, "name": "女装",
+            "sub": [
+                {"id": 201, "name": "短裙"},
+                {"id": 202, "name": "连衣裙"},
+                {
+                    "id": 203, "name": "裤子",
+                    "sub": [
+                        {"id": 2031, "name": "长裤"},
+                        {"id": 2031, "name": "九分裤"},
+                        {"id": 2031, "name": "七分裤"}
+                    ]
+                }
+            ]
+        }
+    ];
+    var sel = document.createElement("select");
+    document.body.appendChild(sel);
+    sel.add(new Option("--请选择--", 0));
+    for (var i = 0; i < data.length; i++) {
+        sel.add(new Option(data[i].name, data[i].id))
+    }
+    sel.onchange = function () {
+        var evt = window.event || arguments[0];
+        console.log(evt);
+        var tag = evt.target || evt.srcElement;
+        if (document.body.lastChild !== tag) {
+            document.body.removeChild(document.body.lastChild)
+        }
+        console.log(tag);
+
+        var index = tag.selectedIndex - 1;
+
+        if (data[index] && data[index].sub) {
+            loadSub(data[index])
+        }
+
+        /*        sel.onchange = function () {
+                    var evt = window.event || arguments[0];
+                    console.log(evt);
+                    var tag = evt.target || evt.srcElement;
+                    if (document.body.lastChild !== tag) {
+                        document.body.removeChild(document.body.lastChild);
+                    }
+                    var ind = tag.selectedIndex - 1;
+                    console.log(ind);
+                    if (subs[ind] && subs[ind].sub) {
+                        var sb = subs[ind].sub;
+                        sel0 = document.createElement("select");
+                        document.body.appendChild(sel0);
+                        sel.add(new Option("请选择", 0));
+                        for (var i = 0; i < sb.length; i++) {
+                            sel.add(new Option(sb[i].name, sb[i].id));
+                        }
+                    }
+                }*/
+
+
+    };
+
+    function loadSub(parent) {
+        if (parent && parent.sub) {
+            var sel = document.createElement("select");
+            document.body.appendChild(sel);
+            sel.add(new Option("--请输入--", 0));
+            var subs = parent.sub;
+            for (var i = 0; i < subs.length; i++) {
+                sel.add(new Option(subs[i].name, subs[i].id))
+            }
+            sel.onchange = function () {
+                var index = this.selectedIndex - 1;
+                var subb = parent.sub[index];
+                loadSub(subb);
+            }
+        }
+    }
+
+    /*var selt = document.createElement("select");
+    document.body.appendChild(selt);
+    selt.add(new Option("--请输入--", 0));
+    for (var i = 0; i < data.length; i++) {
+        selt.add(new Option(data[i].name, data[i].id));
+
+    }
+    selt.onchange = function () {
+        var index = selt.selectedIndex - 1;
+        while (document.body.lastChild !== selt) {
+            document.body.removeChild(document.body.lastChild);
+
+        }
+        loadSub(data[index]);
+    };
+
+    function loadSub(parent) {
+        if (parent && parent.sub) {
+            var sel = document.createElement("select");
+            document.body.appendChild(sel);
+            var subs = parent.sub;
+            for (var i = 0; i < subs.length; i++) {
+                sel.add(new Option(subs[i].name, subs[i].id))
+            }
+        }
+    }*/
+</script>
+</body>
+</html>

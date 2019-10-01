@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    (function () {
+        console.log("匿名");
+    }());
+
+    function counter(n) {
+        function getCounter() {
+            return n++;
+        }
+
+        return getCounter;
+    }
+
+    var c = counter(1);
+
+    for (var i = 0; i < 10; i++) {
+        console.log(c());
+    }
+    c = null;
+
+    function counter1() {
+        var n = 0;
+
+        function getCounter1() {
+            return n++;
+        }
+
+        function gy() {
+            return n = 0;
+        }
+
+        return [getCounter1, gy];
+    }
+
+    var c1 = counter1();
+    console.log(c1[0]());
+    console.log(c1[0]());
+    console.log(c1[0]());
+    console.log(c1[1]());
+ /***关于闭包***/
+    function clusure() {
+        var arr = [];
+        for (var i = 0; i < 4; i++) {
+
+            arr[i] = function () {
+                return i;
+            }
+        }
+        return arr;
+
+    }
+
+    var funs = clusure();
+    console.log(funs[0]());
+    console.log(funs[1]());
+    console.log(funs[2]());
+
+
+    //console.log(counter());
+
+    function isEmpty(str) {
+        if (str === undefined) {
+            return true;
+        } else if (str === null) {
+            return true;
+        } else {
+            var reg = /^\s*$/;
+            return reg.test(str);
+        }
+
+    }
+
+    /*  while (true) {
+           var ipt = prompt("请输入");
+           if (!isEmpty(ipt)) {
+               document.write(ipt);
+               break;
+           } else {
+               alert("输入有误");
+           }
+       }*/
+
+    /**模拟重载*/
+    function calc() {
+        if (arguments.length === 1) {
+            var n = parseFloat(arguments[0]);
+
+            console.log(alert(n * n));
+        } else {
+            var n = parseFloat(arguments[0]);
+            var m = parseFloat(arguments[1]);
+            console.log(alert(n + m))
+        }
+    }
+
+</script>
+<button onclick="calc(5,8)">加法</button>
+<button onclick="calc(5)">乘法</button>
+
+</body>
+</html>

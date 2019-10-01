@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="js/jquery-ui.theme.min.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <style>
+        #myDiv {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            background: #ff8b2b;
+            margin:0 auto ;
+            top:100px;
+
+        }
+    </style>
+    <script>
+        $(function () {
+            $('#myDiv').click(function () {
+                $(this).animate({backgroundColor: '#b2aeff'});
+                $(this).hide('explode', {pieces: 16}, 3000);
+            })
+        });
+
+    </script>
+</head>
+<body>
+<div id="myDiv"></div>
+</body>
+</html>

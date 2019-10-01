@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        body, ul, li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #small {
+            margin-top: 20px;
+        }
+
+        #box-1, #box-2, #box-3 {
+            width: 70px;
+            height: 50px;
+            float: left;
+            line-height: 50px;
+            padding: 3px;
+            cursor: pointer;
+
+        }
+
+        #box-1, #box1 {
+            background-color: aqua;
+
+        }
+
+        #box-2, #box2 {
+            background-color: orange;
+
+        }
+
+        #box-3, #box3 {
+            background-color: orangered;
+        }
+
+        .dw {
+            position: relative;
+            top: 56px;
+
+        }
+
+        #box1, #box2, #box3 {
+            width: 500px;
+            height: 300px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            text-align: center;
+            font-size: 18px;
+            line-height: 200px;
+        }
+
+        .show {
+            z-index: 1;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<ul id="small">
+    <li id="box-1" onclick="show(1)">10元套餐</li>
+    <li id="box-2" onclick="show(2)">30元套餐</li>
+    <li id="box-3" onclick="show(3)">50元套餐</li>
+</ul>
+
+<div class="dw">
+    <div id="box1" class="show">
+        10元套餐详情
+    </div>
+    <div id="box2">
+        30元套餐详情
+    </div>
+    <div id="box3">
+        50元套餐详情
+    </div>
+</div>
+<script type="text/javascript">
+
+    //(function () {
+    var curr = "1";
+
+        function show(n) {
+
+            if (n !== curr) {
+                var idEle = document.getElementById("box" + curr);
+                idEle.removeAttribute("class");
+                var idEle1 = document.getElementById("box" + n);
+                idEle1.className = "show";
+                curr = n;
+            }
+        }
+
+  //  }())
+
+
+</script>
+</body>
+</html>

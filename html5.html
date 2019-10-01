@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<!-- 1、回顾 *1.1form 提交数据
+			
+		* 属性： method:
+		* 提交方式，常用GET POST 
+		* action:提交地址 
+		* enctype:编码方式 
+		* 1.2表单元素 
+		* input text:文本 
+		* password:密码
+		*  radion:单选按钮 
+		* checkbox:复选框 
+		* file:上传文件 
+		* submit:提交按钮
+		*  button:普通按钮 
+		* reset重置按钮 
+		* image:图像按钮
+		*  hidden:隐藏域
+		*  select:下拉列表 
+		* option 定义选项
+		*  textarea:多行文本域 ... *
+		* 2、HTML5新表单元素 接收数据，并且能够对数据进行验证 ********/-->
+
+		<form action="" method="">
+			用户Email:<input type="email" name="" id="" value="" />
+			<input type="submit" value="提交" />
+			<input type="search" name="" id="" value="" />
+		</form>
+		<br />
+
+		<progress id="myPro" max="100" value="20"></progress>
+
+		<form action="" method="post">
+			<table border="" cellspacing="" cellpadding="">
+				<tr>
+					<td>用户名称</td>
+					<td>
+						<input type="text" name="txtName" id="txtName" value="" required=""/>
+						<div id="txtNameTip">
+
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="submit" value="提交" />
+					</td>
+				</tr>
+			</table>
+
+		</form>
+
+		<script type="text/javascript">
+			function $(id) {
+				return document.getElementById(id);
+			}
+
+			function initial() {
+				var myPro = $('myPro');
+				//alert(myPro)
+				setInterval(function() {
+					var val = parseInt(myPro.value);
+					myPro.value = ++val;
+
+					if(val >= parseInt(myPro.max)) {
+
+						myPro.value = 0;
+					}
+				}, 100)
+			}
+			
+			function function_name () {
+					txtName = $('txtName');
+				//txtName.setCustomValidity("用户名称不能为空")
+				txtName.addEventListener("blur",txtNameBlur,false)
+					
+			}
+			
+			function txtNameBlur () {
+				//alert('sdfsdf')
+				var val = txtName.value;
+				
+				if(val.length ==0){
+				  //  alert(txtName);
+				   txtName.setCustomValidity("用户名称不能为空")
+			
+				}else{ 
+					txtName.setCustomValidity("")
+				}
+			}
+			window.addEventListener("load", function_name, false)
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        function createXhr() {
+            var xhr = null;
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else {
+                xhr = new ActiveXObject("Microsoft.XMLHttp");
+            }
+            return xhr;
+        }
+    </script>
+</head>
+<body>
+<h1>使用AJAX向服务器请求各种类型的数据</h1>
+<h2>向服务器请求test/plain数据</h2>
+<ul id="list1"></ul>
+<script>
+    var xhr1 = createXhr();
+    //  console.log(xhr1);
+    xhr1.onreadystatechange = function () {
+
+    };
+    xhr.open('GET', 'dishes.txt', true);
+    xhr1.send(null);
+</script>
+<h2>向服务器请求text/html</h2>
+<ul id="list2"></ul>
+<h2>向服务器请求text/xml</h2>
+<ul id="list3"></ul>
+<h2>向服务器请求application/json数据</h2>
+<ul id="list4"></ul>
+</body>
+</html>
