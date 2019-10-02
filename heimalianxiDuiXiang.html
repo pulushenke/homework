@@ -65,11 +65,27 @@
         }
         //创建对象
         var container = document.querySelector('#container');
-        var div = new Box(container);
-        div.random();
-        //随机生成10个小方块
 
-        var timer = setInterval(random, 1000);
+        let array = [];
+        generate();
+        //随机生成10个小方块
+        function generate() {
+            let r = Tools.getRandom(0,255);
+            let g = Tools.getRandom(0,255);
+            let b = Tools.getRandom(0,255);
+            for (let i = 0; i < 10; i++) {
+                var div = new Box(container,{
+                    backgroundColor:"rgb("+r+","+g+","+b+")"
+                });
+           array.push(div);
+            }
+        }
+
+       setInterval(function(){
+           array.forEach(function(v){
+               v.random;
+           });
+       },1000)
     </script>
 </body>
 
