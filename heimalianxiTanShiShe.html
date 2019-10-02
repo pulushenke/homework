@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 800px;
+            height: 600px;
+            position: relative;
+            background-color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+    </div>
+
+    <script>
+        //创建Foot构造函数
+        function Food(options) {
+            options = options || {};
+            this.width = options.width || 20;
+            this.height = options.height || 20;
+            this.x = options.x || 0;
+            this.y = options.y || 0;
+            this.color = options.color || 'red';
+        }
+        //创建Foot对象渲染到页面
+        let FootPos = 'absolute';
+        Food.prototype.render = function (map) {
+            let div = document.createElement('div');
+            map.appendChild(div);
+            div.style.position = FootPos
+            div.style.width = this.width + 'px';
+            div.style.height = this.height + 'px';
+            div.style.left = this.x + 'px';
+            div.style.top = this.y + 'px';
+            div.style.backgroundColor = this.color;
+        }
+        let food = new Food();
+        let map = document.querySelector('.container');
+        food.render(map);
+    </script>
+</body>
+
+</html>
