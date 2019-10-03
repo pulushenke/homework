@@ -17,6 +17,7 @@
             height: 600px;
             position: relative;
             background-color: #333;
+
         }
     </style>
 </head>
@@ -27,30 +28,242 @@
     </div>
 
     <script>
-        //创建Foot构造函数
-        function Food(options) {
-            options = options || {};
-            this.width = options.width || 20;
-            this.height = options.height || 20;
-            this.x = options.x || 0;
-            this.y = options.y || 0;
-            this.color = options.color || 'red';
-        }
-        //创建Foot对象渲染到页面
-        let FootPos = 'absolute';
-        Food.prototype.render = function (map) {
-            let div = document.createElement('div');
-            map.appendChild(div);
-            div.style.position = FootPos
-            div.style.width = this.width + 'px';
-            div.style.height = this.height + 'px';
-            div.style.left = this.x + 'px';
-            div.style.top = this.y + 'px';
-            div.style.backgroundColor = this.color;
-        }
-        let food = new Food();
-        let map = document.querySelector('.container');
-        food.render(map);
+        //工具
+        (function () {
+            var Tools = {
+                getRandom: function (min, max) {
+                    return Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+            }
+            let FootPos = 'absolute';
+            let elements = [];
+            //创建Foot构造函数
+            function Food(options) {
+                options = options || {};
+                this.width = options.width || 20;
+                this.height = options.height || 20;
+                this.x = options.x || 0;
+                this.y = options.y || 0;
+                this.color = options.color || 'red';
+            }
+            //创建Foot对象渲染到页面
+            
+            Food.prototype.render = function (map) {
+                remove();
+                let div = document.createElement('div');
+                map.appendChild(div);
+                elements.push(div);
+                //随机生成Food
+                this.x = Tools.getRandom(0, map.offsetWidth / this.width - 1) * this.width;
+                this.y = Tools.getRandom(0, map.offsetHeight / this.height - 1) * this.height;
+                div.style.position = FootPos
+                div.style.width = this.width + 'px';
+                div.style.height = this.height + 'px';
+                div.style.left = this.x + 'px';
+                div.style.top = this.y + 'px';
+                div.style.backgroundColor = this.color;
+                
+            }
+           
+
+            //删除Food
+            function remove() {
+                //反向遍历存储的数据元素 删除 
+                for (let i = elements.length - 1; i >= 0; i--) {
+                    elements[i].parentNode.removeChild(elements[i]);
+                    elements.splice(i, 1);
+                    //console.log(elements);
+                }
+
+            }
+            window.Food = Food;
+        }());
+
+        //创建snake构造函数
+        !(function () {
+            let abs = 'absolute';
+            //存放创建的Snake节
+            let elements = [];
+
+            function Snake(options) {
+                options = options || {};
+                //大小
+                this.width = options.width || 20;
+                this.height = options.height || 20;
+                //方向
+                this.direction = options.direction || 'right';
+                // 每一个蛇节的位置
+                this.body = [{
+                        x: 3,
+                        y: 2,
+                        color: 'red'
+                    },
+                    {
+                        x: 2,
+                        y: 2,
+                        color: 'blue'
+                    },
+                    {
+                        x: 1,
+                        y: 2,
+                        color: 'blue'
+                    }
+                ]
+            }
+            window.Snake = Snake;
+            //渲染到页面上
+            Snake.prototype.render = function (map) {
+
+                let len = this.body.length;
+                for (let i = 0; i < len; i++) {
+                    let div = document.createElement('div');
+                    elements.push(div);
+                    map.appendChild(div);
+                    div.style.position = abs;
+                    div.style.width = this.width + 'px';
+                    div.style.height = this.height + 'px';
+                    div.style.backgroundColor = this.body[i].color;
+                    div.style.left = this.body[i].x * this.width + 'px';
+                    div.style.top = this.body[i].y * this.height + 'px';
+                }
+            }
+            //Snake的移动方法
+            Snake.prototype.move = function (food, map) {
+                for (let i = this.body.length - 1; i > 0; i--) {
+                    //身体移动到上一个块的位置
+
+                    remove();
+                    this.body[i].x = this.body[i - 1].x;
+                    this.body[i].y = this.body[i - 1].y;
+
+
+                }
+
+
+                //头移动判断方向 加1
+                let head = this.body[0];
+                switch (this.direction) {
+                    case 'right':
+                        head.x += 1;
+                        console.log(head);
+                        break;
+                    case 'bottom':
+                        head.y += 1;
+                        break;
+                    case 'left':
+                        head.x -= 1;
+                        break;
+                    case 'top':
+                        head.y -= 1;
+                        break;
+                }
+                //Snake移动的同时 删除原有
+                //获取Food的坐标
+                let snakeX = head.x * this.width,
+                    snakeY = head.y * this.width;
+
+                //判断Snake的坐标然后移除Food随机生成Food
+                if (snakeX === food.x && snakeY === food.y) {
+                    //给Snake结尾增加一节
+                    let snakeLast = this.body[this.body.length - 1];
+                    this.body.push({
+                        x: snakeLast.x,
+                        y: snakeLast.y,
+                        color:snakeLast.color
+                    })
+                    food.render(map);
+                }
+
+
+            }
+
+            function remove() {
+                for (let i = elements.length - 1; i >= 0; i--) {
+                    elements[i].parentNode.removeChild(elements[i]);
+                    elements.splice(i);
+                }
+            }
+        }());
+        //创建Game对象
+        !(function () {
+            let that;
+
+            function Game(map) {
+                this.food = new Food();
+                this.snake = new Snake();
+                this.map = map;
+                that = this;
+
+            }
+            Game.prototype.start = function () {
+                //  this.food.render(this.map);
+                //移动Snake自动移动
+
+                this.food.render(this.map);
+                this.snake.render(this.map);
+                keepMove();
+                //限制Snake 在map 里超出提示
+                //键盘控制Snake头的方向
+                setSnakeDirection();
+                //Snake接触食物增加Snake的长度
+            }
+            window.Game = Game;
+
+            function keepMove() {
+                let timerId = null;
+                timerId = setInterval(function () {
+                    that.snake.move(that.food, that.map);
+                    console.log(that);
+                    that.snake.render(that.map);
+                    let headX = that.snake.body[0].x,
+                        headY = that.snake.body[0].y;
+                    let maxX = that.map.offsetWidth / that.snake.width,
+                        maxY = that.map.offsetHeight / that.snake.height;
+                    console.log(maxX);
+                    console.log(headX);
+                    //限制Snake 在map 里超出提示
+                    if (headX < 0 || headX >= maxX - 1) {
+                        alert('游戏结束');
+                        clearInterval(timerId);
+                        console.log(clearInterval(timerId));
+                        timerId = null;
+                        console.log(timerId);
+
+                    } else if (headY < 0 || headY >= maxY - 1) {
+                        alert('游戏结束');
+                        clearInterval(timerId);
+                        timerId = null;
+                    }
+                }, 200);
+
+            }
+
+            function setSnakeDirection() {
+                document.addEventListener('keydown', function (e) {
+                    //判断按下的键改变Snake的方向
+                    console.log(e.keyCode);
+                    switch (e.keyCode) {
+                        case 38:
+                            that.snake.direction = 'top';
+                            break;
+                        case 39:
+                            that.snake.direction = 'right';
+                            break;
+                        case 40:
+                            that.snake.direction = 'bottom';
+                            break;
+                        case 37:
+                            that.snake.direction = 'left';
+                            break;
+                    }
+                })
+            }
+
+        })()
+        //测试
+        let div = document.querySelector('.container')
+        let game = new Game(div);
+        game.start();
     </script>
 </body>
 
