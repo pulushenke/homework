@@ -29,7 +29,9 @@
 
     <script>
         //工具
-        (function () {
+
+        ;
+        (function (win) {
             var Tools = {
                 getRandom: function (min, max) {
                     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -40,14 +42,14 @@
             //创建Foot构造函数
             function Food(options) {
                 options = options || {};
-                this.width = options.width || 20;
-                this.height = options.height || 20;
+
                 this.x = options.x || 0;
                 this.y = options.y || 0;
                 this.color = options.color || 'red';
+                win.Parent.call(this, options);
             }
             //创建Foot对象渲染到页面
-            
+
             Food.prototype.render = function (map) {
                 remove();
                 let div = document.createElement('div');
@@ -62,9 +64,9 @@
                 div.style.left = this.x + 'px';
                 div.style.top = this.y + 'px';
                 div.style.backgroundColor = this.color;
-                
+
             }
-           
+
 
             //删除Food
             function remove() {
@@ -76,11 +78,29 @@
                 }
 
             }
-            window.Food = Food;
-        }());
+            win.Food = Food;
+        }(window));
+
+
+        //创建父级对象并继承 此练习没必要 主要是测试 用在大型项目 同属性 对象多的时候用
+
+        ;
+        (function (win) {
+            function Parent(options) {
+                options = options || {};
+                this.width = options.width || 20;
+                this.height = options.height || 20;
+            }
+            win.Parent = Parent;
+            Parent.prototype.init = function () {
+                console.log(this.width + '测试');
+            }
+        })(window)
 
         //创建snake构造函数
-        !(function () {
+
+        ;
+        (function (win) {
             let abs = 'absolute';
             //存放创建的Snake节
             let elements = [];
@@ -88,8 +108,7 @@
             function Snake(options) {
                 options = options || {};
                 //大小
-                this.width = options.width || 20;
-                this.height = options.height || 20;
+                win.Parent.call(this, options);
                 //方向
                 this.direction = options.direction || 'right';
                 // 每一个蛇节的位置
@@ -110,7 +129,9 @@
                     }
                 ]
             }
-            window.Snake = Snake;
+            Snake.prototype = new Parent();
+            Snake.prototype.constructor = Snake;
+            win.Snake = Snake;
             //渲染到页面上
             Snake.prototype.render = function (map) {
 
@@ -145,7 +166,7 @@
                 switch (this.direction) {
                     case 'right':
                         head.x += 1;
-                        console.log(head);
+
                         break;
                     case 'bottom':
                         head.y += 1;
@@ -169,7 +190,7 @@
                     this.body.push({
                         x: snakeLast.x,
                         y: snakeLast.y,
-                        color:snakeLast.color
+                        color: snakeLast.color
                     })
                     food.render(map);
                 }
@@ -183,16 +204,18 @@
                     elements.splice(i);
                 }
             }
-        }());
+        }(window));
         //创建Game对象
-        !(function () {
-            let that;
+
+        ;
+        (function (win) {
+            //let that;
 
             function Game(map) {
                 this.food = new Food();
                 this.snake = new Snake();
                 this.map = map;
-                that = this;
+               // that = this;
 
             }
             Game.prototype.start = function () {
@@ -201,65 +224,66 @@
 
                 this.food.render(this.map);
                 this.snake.render(this.map);
+                //this.snake.init();
                 keepMove();
+                console.dir(this.snake);
                 //限制Snake 在map 里超出提示
                 //键盘控制Snake头的方向
                 setSnakeDirection();
                 //Snake接触食物增加Snake的长度
             }
-            window.Game = Game;
+            win.Game = Game;
 
             function keepMove() {
                 let timerId = null;
                 timerId = setInterval(function () {
-                    that.snake.move(that.food, that.map);
-                    console.log(that);
-                    that.snake.render(that.map);
-                    let headX = that.snake.body[0].x,
-                        headY = that.snake.body[0].y;
-                    let maxX = that.map.offsetWidth / that.snake.width,
-                        maxY = that.map.offsetHeight / that.snake.height;
-                    console.log(maxX);
-                    console.log(headX);
+                    this.snake.move(this.food, this.map);
+
+                    this.snake.render(this.map);
+                    let headX = this.snake.body[0].x,
+                        headY = this.snake.body[0].y;
+                    let maxX = this.map.offsetWidth / this.snake.width,
+                        maxY = this.map.offsetHeight / this.snake.height;
+
                     //限制Snake 在map 里超出提示
                     if (headX < 0 || headX >= maxX - 1) {
                         alert('游戏结束');
                         clearInterval(timerId);
-                        console.log(clearInterval(timerId));
+                        //console.log(clearInterval(timerId));
                         timerId = null;
-                        console.log(timerId);
+                        //  console.log(timerId);
 
                     } else if (headY < 0 || headY >= maxY - 1) {
                         alert('游戏结束');
                         clearInterval(timerId);
                         timerId = null;
                     }
-                }, 200);
+                }.bind(game), 200);
 
             }
 
             function setSnakeDirection() {
                 document.addEventListener('keydown', function (e) {
                     //判断按下的键改变Snake的方向
-                    console.log(e.keyCode);
+                    //   console.log(e.keyCode);
                     switch (e.keyCode) {
                         case 38:
-                            that.snake.direction = 'top';
+                            this.snake.direction = 'top';
                             break;
                         case 39:
-                            that.snake.direction = 'right';
+                            this.snake.direction = 'right';
                             break;
                         case 40:
-                            that.snake.direction = 'bottom';
+                            this.snake.direction = 'bottom';
                             break;
                         case 37:
-                            that.snake.direction = 'left';
+                            this.snake.direction = 'left';
                             break;
                     }
-                })
+                }.bind(game));
             }
 
-        })()
+        })(window)
         //测试
         let div = document.querySelector('.container')
         let game = new Game(div);

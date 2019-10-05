@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      //高阶函数
+      //做为返回值
+      function getFun (n) {
+          return function(m){
+              return n + m;
+          }
+          
+      }
+       console.log(getFun(10)(4));
+       //作为参数
+      Array.prototype.getSort = function(fn){
+             for(let i = 0; i < this.length - 1; i++){
+                 let isSort = true;
+                 for(let j = 0; j < this.length - i - 1; j ++){
+                      if(fn(this[j],this[j+1]) > 0){
+                          isSort = false;
+                          let tmp =this[j];
+                          this[j] = this[j + 1];
+                          this[j + 1] = tmp;
+                      }
+                 }
+                 if(isSort){
+                     break;
+                 }
+             }
+      }
+       let arr = [2,5,7,3,10,39];
+       arr.getSort(function(a,b){
+           return a - b;
+
+       })
+       console.log(arr);
+    </script>
+</body>
+</html>
